@@ -1,0 +1,12 @@
+.config/kilo/kilo.jsonc.bak
+.config/kilo/node_modules/
+.config/kilo/package.json
+.config/kilo/package-lock.json
+.config/kilo/pnpm-lock.yaml
+.config/kilo/bun.lock
+.config/kilo/yarn.lock
+.config/kilo/agent-manager.json
+.config/kilo/.bash-permission-migrated
+.config/kilo/scripts/__pycache__/
+.config/kilo/**/*.pyc
+.config/kilo/**/.DS_Store
