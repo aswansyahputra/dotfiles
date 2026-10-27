@@ -1,0 +1,118 @@
+{
+  "$schema": "https://assistant.posit.co/schemas/providers.schema.json",
+  "version": 1,
+  "providers": {
+    "custom": {
+      "OpenRouter": {
+        "type": "openai-compatible",
+        "enabled": true,
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "models": {
+          "discovery": "off",
+          "custom": [
+            {
+              "id": "z-ai/glm-5.3-flash:nitro",
+              "name": "[OpenRouter] GLM 5.3 Flash",
+              "maxContextLength": 250000,
+              "maxInputTokens": 234000,
+              "maxOutputTokens": 16000,
+              "supportsTools": true,
+              "supportsImages": true,
+              "supportsToolResultImages": true,
+              "supportsWebSearch": false,
+              "supportedInputMediaTypes": ["image/png", "image/jpeg", "image/webp"],
+              "thinkingEffortLevels": ["low", "high", "max"]
+            },
+            {
+              "id": "deepseek/deepseek-v4.1-flash:nitro",
+              "name": "[OpenRouter] DeepSeek V4.1 Flash",
+              "maxContextLength": 250000,
+              "maxInputTokens": 234000,
+              "maxOutputTokens": 16000,
+              "supportsTools": true,
+              "supportsImages": true,
+              "supportsToolResultImages": true,
+              "supportsWebSearch": false,
+              "supportedInputMediaTypes": ["image/png", "image/jpeg", "image/webp"],
+              "thinkingEffortLevels": ["low", "high", "max"]
+            }
+          ]
+        }
+      },
+      "OpenRouter Full Context": {
+        "type": "openai-compatible",
+        "enabled": true,
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "models": {
+          "discovery": "off",
+          "custom": [
+            {
+              "id": "z-ai/glm-5.3-flash:nitro",
+              "name": "[OpenRouter] GLM 5.3 Flash (Full Context)",
+              "protocol": "openai-chat",
+              "maxContextLength": 1048576,
+              "maxInputTokens": 1032576,
+              "maxOutputTokens": 16000,
+              "supportsTools": true,
+              "supportsImages": true,
+              "supportsToolResultImages": true,
+              "supportsWebSearch": false,
+              "supportedInputMediaTypes": ["image/png", "image/jpeg", "image/webp"],
+              "thinkingEffortLevels": ["low", "high", "max"]
+            },
+            {
+              "id": "deepseek/deepseek-v4.1-flash:nitro",
+              "name": "[OpenRouter] DeepSeek V4.1 Flash (Full Context)",
+              "protocol": "openai-chat",
+              "maxContextLength": 1048576,
+              "maxInputTokens": 1032576,
+              "maxOutputTokens": 16000,
+              "supportsTools": true,
+              "supportsImages": true,
+              "supportsToolResultImages": true,
+              "supportsWebSearch": false,
+              "supportedInputMediaTypes": ["image/png", "image/jpeg", "image/webp"],
+              "thinkingEffortLevels": ["low", "high", "max"]
+            }
+          ]
+        }
+      },
+      "Kilo Gateway": {
+        "type": "openai-compatible",
+        "enabled": true,
+        "baseUrl": "https://api.kilo.ai/api/gateway",
+        "models": {
+          "discovery": "off",
+          "custom": [
+            {
+              "id": "z-ai/glm-5.3-flash",
+              "name": "[Kilo Gateway] GLM 5.3 Flash",
+              "maxContextLength": 250000,
+              "maxInputTokens": 234000,
+              "maxOutputTokens": 16000,
+              "supportsTools": true,
+              "supportsImages": true,
+              "supportsToolResultImages": true,
+              "supportsWebSearch": false,
+              "supportedInputMediaTypes": ["image/png", "image/jpeg", "image/webp"],
+              "thinkingEffortLevels": ["low", "high", "max"]
+            },
+            {
+              "id": "deepseek/deepseek-v4.1-flash",
+              "name": "[Kilo Gateway] DeepSeek V4.1 Flash",
+              "maxContextLength": 250000,
+              "maxInputTokens": 234000,
+              "maxOutputTokens": 16000,
+              "supportsTools": true,
+              "supportsImages": true,
+              "supportsToolResultImages": true,
+              "supportsWebSearch": false,
+              "supportedInputMediaTypes": ["image/png", "image/jpeg", "image/webp"],
+              "thinkingEffortLevels": ["low", "high", "max"]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

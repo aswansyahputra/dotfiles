@@ -1,0 +1,50 @@
+{
+  "$schema": "https://assistant.posit.co/schemas/settings.schema.json",
+  "features": {
+    "autoCompactTokenBuffer": 5000,
+    "showConversationCost": true,
+    "showTurnCost": true
+  },
+  "sandbox": {
+    "enabled": true
+  },
+  "preferredModel": {
+    "id": "deepseek/deepseek-v4.1-flash",
+    "provider": "Kilo Gateway",
+    "thinkingEffort": "low",
+    "comment": "Ignored since Posit Assistant 1.9.0. To keep this as a fixed model, rename this key to defaultModel and delete this comment. Safe to delete once all your Posit Assistant installs are updated."
+  },
+  "modelTiers": {
+    "low": {
+      "models": [
+        "zai-org/GLM-5.3-Flash",
+        "z-ai/glm-5.3-flash:nitro",
+        "deepseek/deepseek-v4.1-flash:nitro",
+        "z-ai/glm-5.3-flash",
+        "deepseek/deepseek-v4.1-flash"
+      ],
+      "thinkingEffort": "low"
+    },
+    "medium": {
+      "models": [
+        "zai-org/GLM-5.3-Flash",
+        "z-ai/glm-5.3-flash:nitro",
+        "deepseek/deepseek-v4.1-flash:nitro",
+        "z-ai/glm-5.3-flash",
+        "deepseek/deepseek-v4.1-flash"
+      ],
+      "thinkingEffort": "high"
+    },
+    "high": {
+      "models": [
+        "zai-org/GLM-5.3-Flash",
+        "z-ai/glm-5.3-flash:nitro",
+        "deepseek/deepseek-v4.1-flash:nitro",
+        "z-ai/glm-5.3-flash",
+        "deepseek/deepseek-v4.1-flash"
+      ],
+      "thinkingEffort": "max"
+    }
+  },
+  "approvalMode": "auto"
+}
