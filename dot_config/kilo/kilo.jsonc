@@ -181,27 +181,6 @@
             "max": { "reasoningEffort": "max" },
           },
         },
-        "bt/gpt-6-luna": {
-          "name": "bt/gpt-6-luna",
-          "tool_call": true,
-          "reasoning": true,
-          "temperature": false,
-          "cost": { "input": 0.016123, "output": 0.032246 },
-          "limit": { "context": 1050000, "input": 922000, "output": 128000 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
-          },
-          "attachment": true,
-          "variants": {
-            "none": { "reasoningEffort": "none" },
-            "low": { "reasoningEffort": "low" },
-            "medium": { "reasoningEffort": "medium" },
-            "high": { "reasoningEffort": "high" },
-            "xhigh": { "reasoningEffort": "xhigh" },
-            "max": { "reasoningEffort": "max" },
-          },
-        },
         "bt/step-5-preview": {
           "name": "bt/step-5-preview",
           "tool_call": true,
@@ -254,6 +233,24 @@
             "low": { "reasoningEffort": "low" },
             "high": { "reasoningEffort": "high" },
             "max": { "reasoningEffort": "max" },
+          },
+        },
+        "bt/qwen3.8-flash": {
+          "name": "bt/qwen3.8-flash",
+          "tool_call": true,
+          "reasoning": true,
+          "temperature": true,
+          "cost": { "input": 0.020959, "output": 0.041919 },
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": {
+            "input": ["text", "image", "video"],
+            "output": ["text"],
+          },
+          "attachment": true,
+          "variants": {
+            "low": { "reasoningEffort": "low" },
+            "medium": { "reasoningEffort": "medium" },
+            "xhigh": { "reasoningEffort": "xhigh" },
           },
         },
         "bt/deepseek-v4.1-flash": {
