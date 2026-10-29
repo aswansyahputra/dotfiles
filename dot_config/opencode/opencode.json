@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "repl-r": {
+        "type": "local",
+        "command": [
+          "/Users/aswansyahputra/.local/bin/mcp-repl",
+          "--sandbox",
+          "workspace-write",
+          "--oversized-output",
+          "files",
+          "--interpreter",
+          "r"
+        ]
+      },
+      "repl-python": {
+        "type": "local",
+        "command": [
+          "/Users/aswansyahputra/.local/bin/mcp-repl",
+          "--sandbox",
+          "workspace-write",
+          "--oversized-output",
+          "files",
+          "--interpreter",
+          "python"
+        ]
+      }
+    }
+  }
+}
