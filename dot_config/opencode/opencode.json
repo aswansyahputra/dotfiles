@@ -1,28 +1,13 @@
 {
   "mcp": {
     "servers": {
-      "repl-r": {
+      "console": {
         "type": "local",
         "command": [
-          "/Users/aswansyahputra/.local/bin/mcp-repl",
-          "--sandbox",
-          "workspace-write",
-          "--oversized-output",
-          "files",
-          "--interpreter",
-          "r"
-        ]
-      },
-      "repl-python": {
-        "type": "local",
-        "command": [
-          "/Users/aswansyahputra/.local/bin/mcp-repl",
-          "--sandbox",
-          "workspace-write",
-          "--oversized-output",
-          "files",
-          "--interpreter",
-          "python"
+          "/Users/aswansyahputra/.local/bin/mcp-console",
+          "serve",
+          "-c",
+          "sandbox.profile=workspace"
         ]
       },
       "gamma": {
