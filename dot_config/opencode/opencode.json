@@ -1,4 +1,5 @@
 {
+  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "console": {
@@ -54,11 +55,11 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.0556,
-            "output": 0.1778,
+            "input": 0.0722,
+            "output": 0.2222,
             "cache": {
-              "read": 0.0056,
-              "write": 0.0056
+              "read": 0.0072,
+              "write": 0.0072
             }
           }
         },
@@ -584,11 +585,11 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.8333,
-            "output": 4.1667,
+            "input": 1.6667,
+            "output": 8.3333,
             "cache": {
-              "read": 0.0833,
-              "write": 0.0833
+              "read": 0.1667,
+              "write": 0.1667
             }
           }
         },
@@ -608,11 +609,11 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.1,
-            "output": 0.4,
+            "input": 0.25,
+            "output": 1.0,
             "cache": {
-              "read": 0.01,
-              "write": 0.01
+              "read": 0.025,
+              "write": 0.025
             }
           }
         },
@@ -644,11 +645,11 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.0556,
-            "output": 0.2,
+            "input": 0.1278,
+            "output": 0.4611,
             "cache": {
-              "read": 0.0056,
-              "write": 0.0056
+              "read": 0.0128,
+              "write": 0.0128
             }
           }
         },
