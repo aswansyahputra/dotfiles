@@ -40,6 +40,23 @@ def efforts(mid, catalog):
     return list(lists.most_common(1)[0][0]) if lists else None
 
 
+def flat(o, pre=""):
+    out = OrderedDict()
+    for k, v in o.items():
+        key = f"{pre}.{k}" if pre else k
+        if isinstance(v, dict):
+            out.update(flat(v, key))
+        else:
+            out[key] = v
+    return out
+
+
+def fmt(k, v):
+    if isinstance(v, list):
+        return ", ".join(map(str, v)) or "—"
+    return f"${v}" if v is not None and k.startswith("cost.") else str(v)
+
+
 def main():
     key = os.environ.get("NUSAGATE_API_KEY")
     if not key:  # non-interactive shells don't source ~/.zshrc
@@ -71,7 +88,7 @@ def main():
     cfg = json.load(open(CONFIG), object_pairs_hook=OrderedDict)
     models = cfg["providers"]["nusagate"]["models"]
     usd = lambda v: round(v / RATE, 4)
-    unknown, changed = [], 0
+    unknown, changed, deltas = [], 0, []
 
     for mid, old in list(models.items()):
         a = api.get(mid)
@@ -96,11 +113,17 @@ def main():
                                          "write": usd(pr["cachePricePer1M"])}}
         if new != old:
             changed += 1
+            a_, b_ = flat(old), flat(new)
+            deltas.append((mid, [(k, a_.get(k), b_.get(k)) for k in dict.fromkeys([*a_, *b_])
+                                 if a_.get(k) != b_.get(k)]))
         models[mid] = new
 
     if changed:
         open(CONFIG, "w").write(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
-    print(f"{len(models)} models, {changed} updated, rate Rp {RATE}/USD\n")
+    print(f"{len(models)} models, {changed} updated, rate Rp {RATE}/USD")
+    for mid, ds in deltas:
+        print(f"  - {mid}: " + "; ".join(f"{k} {fmt(k, a)} → {fmt(k, b)}" for k, a, b in ds))
+    print()
     rows = sorted(
         (mid, f"${m['cost']['input']}", f"${m['cost']['output']}", f"${m['cost']['cache']['read']}",
          ", ".join(m.get("capabilities", {}).get("reasoning", {}).get("effort", [])) or "—")
