@@ -194,11 +194,11 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.1444,
-            "output": 0.5556,
+            "input": 0.2889,
+            "output": 1.1111,
             "cache": {
-              "read": 0.0144,
-              "write": 0.0144
+              "read": 0.0289,
+              "write": 0.0289
             }
           }
         },
