@@ -15,6 +15,13 @@
         "type": "remote",
         "url": "https://mcp.gamma.app/mcp"
       }
+    },
+    "positron": {
+      "type": "local",
+      "command": [
+        "/bin/sh",
+        "/Users/aswansyahputra/Library/Application Support/Positron/User/globalStorage/positron.positron-supervisor/mcp/Positron MCP/positron-mcp"
+      ]
     }
   },
   "providers": {
@@ -161,7 +168,7 @@
           },
           "cost": {
             "input": 0.6667,
-            "output": 4.0,
+            "output": 4,
             "cache": {
               "read": 0.0667,
               "write": 0.0667
@@ -610,7 +617,7 @@
           },
           "cost": {
             "input": 0.25,
-            "output": 1.0,
+            "output": 1,
             "cache": {
               "read": 0.025,
               "write": 0.025

@@ -414,6 +414,96 @@
       "skillFolderHash": "0860a6dbbfcb8924f516a7dd90b229b5d33d68a1",
       "installedAt": "2026-10-31T04:03:13.909Z",
       "updatedAt": "2026-10-31T04:10:37.669Z"
+    },
+    "analyze": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/analyze/SKILL.md",
+      "skillFolderHash": "7572805313d85c22d2d0a3e25101fdb1ed187af2",
+      "installedAt": "2026-11-08T14:08:05.012Z",
+      "updatedAt": "2026-11-08T14:08:05.012Z"
+    },
+    "build-dashboard": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/build-dashboard/SKILL.md",
+      "skillFolderHash": "d4f3d89170f0e6fcab49cf28bab08d15d153c7c5",
+      "installedAt": "2026-11-08T14:08:15.757Z",
+      "updatedAt": "2026-11-08T14:08:15.757Z"
+    },
+    "create-viz": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/create-viz/SKILL.md",
+      "skillFolderHash": "a1d964650cb9d2439af30254e88d45ad494ec05d",
+      "installedAt": "2026-11-08T14:08:21.028Z",
+      "updatedAt": "2026-11-08T14:08:21.028Z"
+    },
+    "data-context-extractor": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/data-context-extractor/SKILL.md",
+      "skillFolderHash": "63e9e6585eed590b6af3ee98665500dd5664beba",
+      "installedAt": "2026-11-08T14:08:25.843Z",
+      "updatedAt": "2026-11-08T14:08:25.843Z"
+    },
+    "data-visualization": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/data-visualization/SKILL.md",
+      "skillFolderHash": "cc2b5235344f14558b0da842510e87952cc9063b",
+      "installedAt": "2026-11-08T14:08:30.438Z",
+      "updatedAt": "2026-11-08T14:08:30.438Z"
+    },
+    "explore-data": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/explore-data/SKILL.md",
+      "skillFolderHash": "bee4c8c0603859fd60c3622dd41e7a093476fcbf",
+      "installedAt": "2026-11-08T14:08:34.083Z",
+      "updatedAt": "2026-11-08T14:08:34.083Z"
+    },
+    "sql-queries": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/sql-queries/SKILL.md",
+      "skillFolderHash": "508444de634ec4ba9178750b6cbc897fe9f9c169",
+      "installedAt": "2026-11-08T14:08:37.489Z",
+      "updatedAt": "2026-11-08T14:08:37.489Z"
+    },
+    "statistical-analysis": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/statistical-analysis/SKILL.md",
+      "skillFolderHash": "43c75ea64ed2726d5d3b713c3312dc4537444fe2",
+      "installedAt": "2026-11-08T14:08:41.541Z",
+      "updatedAt": "2026-11-08T14:08:41.541Z"
+    },
+    "validate-data": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/validate-data/SKILL.md",
+      "skillFolderHash": "270c075639c4e5d1dac85478eac215d34dfe2268",
+      "installedAt": "2026-11-08T14:08:44.972Z",
+      "updatedAt": "2026-11-08T14:08:44.972Z"
+    },
+    "write-query": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/knowledge-work-plugins.git",
+      "skillPath": "data/skills/write-query/SKILL.md",
+      "skillFolderHash": "f961e3469f694b2d1cbb7ef7835eac51be230b1d",
+      "installedAt": "2026-11-08T14:08:49.151Z",
+      "updatedAt": "2026-11-08T14:08:49.151Z"
     }
   },
   "dismissed": {
