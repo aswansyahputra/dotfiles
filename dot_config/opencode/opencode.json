@@ -22,6 +22,13 @@
         "/bin/sh",
         "/Users/aswansyahputra/Library/Application Support/Positron/User/globalStorage/positron.positron-supervisor/mcp/Positron MCP/positron-mcp"
       ]
+    },
+    "tableplus": {
+      "type": "local",
+      "command": [
+        "/Applications/TablePlus.app/Contents/MacOS/tableplus-mcp"
+      ],
+      "enabled": true
     }
   },
   "providers": {

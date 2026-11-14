@@ -215,9 +215,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
       "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
-      "skillFolderHash": "829c4dab53f10cde51f0ff58b0bb13fe870f7e94",
+      "skillFolderHash": "d69b734e576aa6b430bc11a435aa11d29bc92c8e",
       "installedAt": "2026-10-13T08:35:44.031Z",
-      "updatedAt": "2026-10-29T10:35:58.182Z"
+      "updatedAt": "2026-11-09T21:57:47.959Z"
     },
     "r-cli": {
       "source": "posit-dev/skills",
@@ -304,10 +304,10 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/posit-dev/skills.git",
       "skillPath": "shiny/shiny-py-optimize/SKILL.md",
-      "skillFolderHash": "ed2876125770a4acebf65b6b70aacbff0565b3e3",
+      "skillFolderHash": "128399069697d00aa0a16c05174ab217b3601a99",
       "pluginName": "shiny",
       "installedAt": "2026-10-29T10:33:35.710Z",
-      "updatedAt": "2026-10-29T10:33:35.710Z"
+      "updatedAt": "2026-11-14T23:52:41.912Z"
     },
     "shiny-r-optimize": {
       "source": "posit-dev/skills",
