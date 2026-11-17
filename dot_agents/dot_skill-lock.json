@@ -515,16 +515,6 @@
       "installedAt": "2026-11-08T23:17:03.961Z",
       "updatedAt": "2026-11-08T23:17:40.562Z"
     },
-    "ggplot2": {
-      "source": "holtzy/dataviz-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/holtzy/dataviz-skills.git",
-      "skillPath": "ggplot2/SKILL.md",
-      "skillFolderHash": "fbcbc6309338ef2a501eefc3cb01e07df9ebf17f",
-      "pluginName": "dataviz-skills",
-      "installedAt": "2026-11-15T10:41:03.571Z",
-      "updatedAt": "2026-11-15T10:41:03.571Z"
-    },
     "roast-my-chart": {
       "source": "holtzy/dataviz-skills",
       "sourceType": "github",
@@ -554,6 +544,56 @@
       "pluginName": "dataviz-skills",
       "installedAt": "2026-11-15T10:45:30.652Z",
       "updatedAt": "2026-11-15T10:45:30.652Z"
+    },
+    "advanced-ggplot2": {
+      "source": "z3tt/dataviz-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/z3tt/dataviz-skills.git",
+      "commit": "ae337e323f470dd5444640cdd344e1c1ec8b3145",
+      "skillPath": "advanced-ggplot2/SKILL.md",
+      "skillFolderHash": "9d79a4a57df49ad02e53d3e4a80976e81c8b0c84",
+      "installedAt": "2026-11-17T23:35:23.280Z",
+      "updatedAt": "2026-11-17T23:38:57.328Z"
+    },
+    "dataviz-principles": {
+      "source": "z3tt/dataviz-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/z3tt/dataviz-skills.git",
+      "commit": "ae337e323f470dd5444640cdd344e1c1ec8b3145",
+      "skillPath": "dataviz-principles/SKILL.md",
+      "skillFolderHash": "44492f12662b0520e88a5652e8039dfb7a734718",
+      "installedAt": "2026-11-17T23:35:23.283Z",
+      "updatedAt": "2026-11-17T23:38:57.330Z"
+    },
+    "dataviz-workflow": {
+      "source": "z3tt/dataviz-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/z3tt/dataviz-skills.git",
+      "commit": "ae337e323f470dd5444640cdd344e1c1ec8b3145",
+      "skillPath": "dataviz-workflow/SKILL.md",
+      "skillFolderHash": "5f2731612b2d133fecfeee726535b03f0b700d8d",
+      "installedAt": "2026-11-17T23:35:23.284Z",
+      "updatedAt": "2026-11-17T23:38:57.331Z"
+    },
+    "quarto-reporting": {
+      "source": "z3tt/dataviz-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/z3tt/dataviz-skills.git",
+      "commit": "ae337e323f470dd5444640cdd344e1c1ec8b3145",
+      "skillPath": "quarto-reporting/SKILL.md",
+      "skillFolderHash": "e104b4c44e77c3dd4b8d9c1247f6fc39019f2c10",
+      "installedAt": "2026-11-17T23:35:23.286Z",
+      "updatedAt": "2026-11-17T23:38:57.331Z"
+    },
+    "web-dataviz": {
+      "source": "z3tt/dataviz-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/z3tt/dataviz-skills.git",
+      "commit": "ae337e323f470dd5444640cdd344e1c1ec8b3145",
+      "skillPath": "web-dataviz/SKILL.md",
+      "skillFolderHash": "a618ed46232a87364775a3b503bb774949d57e6c",
+      "installedAt": "2026-11-17T23:35:23.286Z",
+      "updatedAt": "2026-11-17T23:38:57.332Z"
     }
   },
   "dismissed": {
