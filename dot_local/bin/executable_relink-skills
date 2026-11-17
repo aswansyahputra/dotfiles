@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+# relink-skills — replace duplicate skill copies with symlinks into the
+# canonical ~/.agents/skills directory.
+#
+# Why: `npx skills add <src> -a <one-agent>` copies the skill into that
+# agent's directory. Installing to two agents at once (e.g. -a opencode
+# -a claude-code) instead writes one copy to ~/.agents/skills and symlinks
+# the others to it. This script repairs installs that took the copy path.
+#
+# Safe by construction: it only touches directories that
+#   1. are real directories (not already symlinks),
+#   2. have a same-named counterpart in ~/.agents/skills, and
+#   3. are byte-identical to that counterpart (diff -rq).
+# Anything else is reported and left alone. Use --dry-run to preview.
+#
+# Usage:
+#   relink-skills                 # repair ~/.claude/skills
+#   relink-skills --dry-run       # show what would change
+#   relink-skills ~/.claude/skills ~/.cursor/skills
+
+set -euo pipefail
+
+CANON="${SKILLS_CANON:-$HOME/.agents/skills}"
+dry_run=0
+targets=()
+
+for arg in "$@"; do
+  case "$arg" in
+    -n|--dry-run) dry_run=1 ;;
+    -h|--help) sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -*) echo "unknown option: $arg" >&2; exit 2 ;;
+    *) targets+=("$arg") ;;
+  esac
+done
+
+[ ${#targets[@]} -eq 0 ] && targets=("$HOME/.claude/skills")
+
+if [ ! -d "$CANON" ]; then
+  echo "error: canonical skills dir not found: $CANON" >&2
+  exit 1
+fi
+
+changed=0
+
+for target in "${targets[@]}"; do
+  if [ ! -d "$target" ]; then
+    echo "skip: $target does not exist" >&2
+    continue
+  fi
+  target=$(cd "$target" && pwd -P)
+
+  for path in "$target"/*; do
+    [ -e "$path" ] || continue
+    [ -L "$path" ] && continue          # already a symlink
+    [ -d "$path" ] || continue          # not a skill dir
+
+    name=${path##*/}
+    canon="$CANON/$name"
+
+    if [ ! -d "$canon" ]; then
+      echo "skip: $name (no canonical copy at $canon)" >&2
+      continue
+    fi
+
+    if ! diff -rq "$canon" "$path" >/dev/null 2>&1; then
+      echo "skip: $name (contents differ from canonical — left untouched)" >&2
+      continue
+    fi
+
+    rel=$(python3 -c 'import os,sys; print(os.path.relpath(sys.argv[1], sys.argv[2]))' "$canon" "$target")
+
+    # Keep relative links (portable across dotfile syncs) only when both
+    # sides live under $HOME; otherwise an absolute path is clearer.
+    case "$target" in
+      "$HOME"/*) ;;
+      *) rel="$canon" ;;
+    esac
+
+    if [ "$dry_run" -eq 1 ]; then
+      echo "would relink: $path -> $rel"
+    else
+      rm -rf "$path"
+      ln -s "$rel" "$path"
+      echo "relinked: $path -> $rel"
+    fi
+    changed=$((changed + 1))
+  done
+done
+
+if [ "$dry_run" -eq 1 ]; then
+  echo "$changed would be relinked (dry run, nothing changed)"
+else
+  echo "$changed relinked"
+fi
