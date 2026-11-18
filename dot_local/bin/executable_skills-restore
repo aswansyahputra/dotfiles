@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+# skills-restore — rebuild a global `npx skills` installation from the lock file.
+#
+# Why: `npx skills` has no global restore. `experimental_install` (alias
+# `install`) reads only a project skills-lock.json and has no -g flag. So on a
+# fresh machine `chezmoi apply` gives you ~/.agents/.skill-lock.json describing
+# dozens of skills that are not on disk. This script turns that lock back into
+# the `npx skills add` commands that created it.
+#
+# It prints commands by default and changes nothing. Pass --run to execute.
+#
+# Usage:
+#   skills-restore                      # print the plan
+#   skills-restore --run                # execute it
+#   skills-restore --json               # machine-readable plan
+#   skills-restore --agents opencode,claude-code,cursor
+#   skills-restore --lock ~/dotfiles/skills-lock.json
+#   skills-restore --verify             # compare lock against disk, no install
+#
+# Exit codes: 0 ok, 1 lock missing/unreadable, 2 bad usage, 3 --run had failures.
+
+set -uo pipefail
+
+LOCK="${SKILLS_LOCK:-$HOME/.agents/.skill-lock.json}"
+AGENTS="opencode,claude-code"
+MODE="print"          # print | run | json | verify
+PIN=0
+
+usage() { sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; }
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -n|--dry-run) MODE="print" ;;
+    --run)        MODE="run" ;;
+    --json)       MODE="json" ;;
+    --verify)     MODE="verify" ;;
+    --pin)        PIN=1 ;;
+    --lock)       [ $# -ge 2 ] || { echo "error: --lock needs a path" >&2; exit 2; }; LOCK="$2"; shift ;;
+    --lock=*)     LOCK="${1#*=}" ;;
+    -a|--agents)  [ $# -ge 2 ] || { echo "error: --agents needs a list" >&2; exit 2; }; AGENTS="$2"; shift ;;
+    --agents=*)   AGENTS="${1#*=}" ;;
+    -h|--help)    usage; exit 0 ;;
+    *)            echo "error: unknown option: $1" >&2; usage >&2; exit 2 ;;
+  esac
+  shift
+done
+
+if [ ! -f "$LOCK" ]; then
+  echo "error: lock file not found: $LOCK" >&2
+  echo "hint: on a fresh machine the lock comes from chezmoi (chezmoi apply ~/.agents/.skill-lock.json)" >&2
+  exit 1
+fi
+
+LOCK="$LOCK" AGENTS="$AGENTS" MODE="$MODE" PIN="$PIN" CANON="$HOME/.agents/skills" \
+python3 - <<'PY'
+import json, os, shlex, subprocess, sys, collections
+
+lock_path = os.environ['LOCK']
+agents    = [a.strip() for a in os.environ['AGENTS'].split(',') if a.strip()]
+mode      = os.environ['MODE']
+pin       = os.environ['PIN'] == '1'
+canon     = os.environ['CANON']
+
+try:
+    doc = json.load(open(lock_path))
+except (OSError, json.JSONDecodeError) as e:
+    print(f"error: cannot read lock {lock_path}: {e}", file=sys.stderr)
+    sys.exit(1)
+
+skills = doc.get('skills') or {}
+
+# --- classify every lock entry -------------------------------------------
+# Re-addable via a git shorthand, or a direct URL, or not at all.
+git_types = {'github', 'gitlab', 'azure', 'git', 'gitea', 'bitbucket'}
+groups = collections.OrderedDict()   # restore source -> [skill names]
+renamed = []                         # (new_name, original_name, source)
+unrestorable = []                    # (name, sourceType, reason)
+
+for name in sorted(skills):
+    v = skills[name]
+    st = v.get('sourceType', 'github')
+    src = v.get('source') or v.get('sourceUrl') or ''
+    url = v.get('sourceUrl') or ''
+
+    if st in git_types:
+        if not src:
+            unrestorable.append((name, st, 'no source recorded')); continue
+        key = src
+    elif st in ('download', 'notion'):
+        # A signed URL is deliberately not recorded; nothing to replay.
+        if not url or '?' in url or '@' in url.split('//', 1)[-1].split('/')[0]:
+            unrestorable.append((name, st, 'URL not recorded (signed or credential-bearing)')); continue
+        key = url
+    else:
+        unrestorable.append((name, st, f'unsupported sourceType {st!r}')); continue
+
+    if pin and v.get('commit') and st in git_types:
+        key = f"{key}@{v['commit']}"
+
+    original = v.get('skillName')
+    if original and original != name:
+        renamed.append((name, original, key))
+    else:
+        groups.setdefault(key, []).append(name)
+
+# --- build the commands ---------------------------------------------------
+agent_flags = ' '.join(f'-a {a}' for a in agents)
+
+def cmd_for(source, names):
+    flags = ' '.join(f'--skill {shlex.quote(n)}' for n in names)
+    return f'npx skills add {shlex.quote(source)} -g {agent_flags} -y {flags}'
+
+commands = []
+for source, names in groups.items():
+    commands.append({'source': source, 'skills': names, 'cmd': cmd_for(source, names)})
+for new, orig, source in renamed:
+    c = f'npx skills add {shlex.quote(source)} -g {agent_flags} -y --skill {shlex.quote(orig)} --rename {new}'
+    commands.append({'source': source, 'skills': [f'{orig} (as {new})'], 'cmd': c})
+
+# Stable, readable ordering: group by source name rather than first-seen.
+commands.sort(key=lambda c: (c['source'].lower(), c['skills'][0].lower()))
+
+# --- orphans: on disk but not in the lock --------------------------------
+orphans = []
+if os.path.isdir(canon):
+    orphans = sorted(d for d in os.listdir(canon)
+                     if os.path.isdir(os.path.join(canon, d)) and d not in skills)
+
+# --- report ---------------------------------------------------------------
+if mode == 'json':
+    json.dump({'lock': lock_path, 'agents': agents,
+               'commands': commands,
+               'unrestorable': [{'skill': n, 'sourceType': t, 'reason': r} for n, t, r in unrestorable],
+               'orphans': orphans}, sys.stdout, indent=2)
+    print()
+    sys.exit(0)
+
+if mode == 'verify':
+    total = len(skills)
+    missing = [n for n in skills if not os.path.isdir(os.path.join(canon, n))]
+    print(f"lock:        {lock_path}")
+    print(f"canonical:   {canon}")
+    print(f"lock entries: {total}")
+    print(f"on disk:      {total - len(missing)}")
+    if missing:
+        print(f"\nmissing ({len(missing)}):")
+        for n in sorted(missing):
+            print(f"  - {n}")
+    if orphans:
+        print(f"\nin lock-less on disk ({len(orphans)}) — not restorable from this lock:")
+        for n in orphans:
+            print(f"  + {n}")
+    if unrestorable:
+        print(f"\nunrestorable ({len(unrestorable)}):")
+        for n, t, r in unrestorable:
+            print(f"  ! {n} [{t}] {r}")
+    print("\nstatus:", "complete" if not missing else f"{len(missing)} skill(s) missing — run without --verify")
+    sys.exit(0 if not missing else 1)
+
+def show(names, limit=8):
+    """Cap long lists so a mismatched lock does not flood the terminal."""
+    if len(names) <= limit:
+        return ', '.join(names)
+    return ', '.join(names[:limit]) + f', … (+{len(names) - limit} more)'
+
+# print / run
+print(f"# skills-restore — {len(skills)} skills from {len(commands)} source(s)")
+print(f"# lock:   {lock_path}")
+print(f"# agents: {', '.join(agents)}")
+print()
+for i, c in enumerate(commands, 1):
+    label = show(c['skills'])
+    print(f"# {i}/{len(commands)}  {c['source']}  ({len(c['skills'])} skill{'s' if len(c['skills']) != 1 else ''})")
+    print(f"#   {label}")
+    print(c['cmd'])
+    print()
+
+if unrestorable:
+    print(f"# NOTE: {len(unrestorable)} skill(s) cannot be replayed from this lock:")
+    for n, t, r in unrestorable:
+        print(f"#   {n} [{t}] — {r}")
+    print()
+if orphans:
+    print(f"# NOTE: {len(orphans)} skill(s) on disk are absent from the lock (hand-written?):")
+    print(f"#   {show(orphans)}")
+    print()
+
+if mode == 'print':
+    print("# Nothing was changed. Re-run with --run to execute.")
+    sys.exit(0)
+
+# --- execute --------------------------------------------------------------
+print(f"# executing {len(commands)} command(s)…\n", file=sys.stderr)
+failed = []
+for i, c in enumerate(commands, 1):
+    print(f"[{i}/{len(commands)}] {c['source']}", file=sys.stderr)
+    r = subprocess.run(c['cmd'], shell=True)
+    if r.returncode != 0:
+        failed.append((c['source'], r.returncode))
+        print(f"  FAILED (exit {r.returncode})", file=sys.stderr)
+
+print(file=sys.stderr)
+if failed:
+    print(f"{len(failed)} source(s) failed:", file=sys.stderr)
+    for s, rc in failed:
+        print(f"  {s} (exit {rc})", file=sys.stderr)
+    print("\nhint: run `relink-skills --dry-run` then `relink-skills` to collapse any copies",
+          file=sys.stderr)
+    sys.exit(3)
+
+print(f"done: {len(commands)} source(s) restored.", file=sys.stderr)
+print("next: `relink-skills --dry-run` then `relink-skills` to collapse any copies",
+      file=sys.stderr)
+PY
