@@ -68,7 +68,7 @@
 
 # Secret gate. Runs after staging, before `git commit`, so it inspects exactly
 # what would be committed. Public remote: block rather than publish a token.
-# See secret-guard.sh — it also unstages and removes the offending source file,
+# See chezmoi-secret-guard — it also unstages and removes the offending source file,
 # so the secret cannot ride along in the next auto-commit.
 [hooks."git-auto-commit".pre]
     command = "sh"
