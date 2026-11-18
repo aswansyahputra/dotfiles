@@ -10,3 +10,5 @@
 .config/kilo/scripts/__pycache__/
 .config/kilo/**/*.pyc
 .config/kilo/**/.DS_Store
+# Repo documentation — lives in source, not in $HOME.
+README.md
