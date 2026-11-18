@@ -1,0 +1,75 @@
+# chezmoi configuration template — rendered by `chezmoi init` on a new machine.
+#
+# autoAdd + autoCommit: commands that modify the source state (add, re-add,
+# forget, edit, chattr, import, merge, destroy, purge) stage and commit for you.
+# autoPush stays off: a commit is local and amendable, a push is published.
+# Review with `chezmoi git -- log -1 -p`, then `chezmoi git -- push`.
+#
+# Braces in the commit message template below are escaped so this file renders
+# to the same literal text; it is a template only for `chezmoi init`.
+
+[git]
+    autoAdd = true
+    autoCommit = true
+    autoPush = false
+
+    # Conventional commits: type(scope): subject, with a body for multi-file
+    # changes. Types: feat (new targets), chore (updates/removals), docs (*.md).
+    # Scope comes from the first changed path: dot_config/opencode/x ->
+    # "opencode", dot_agents/* -> "skills", top-level *.md -> "docs".
+    commitMessageTemplate = '''
+{{"{{"}}- $status := .chezmoi.status -{{"}}"}}
+{{"{{"}}- $type := "chore" -{{"}}"}}
+{{"{{"}}- $scope := "dotfiles" -{{"}}"}}
+{{"{{"}}- $n := 0 -{{"}}"}}
+{{"{{"}}- $adds := 0 -{{"}}"}}
+{{"{{"}}- $dels := 0 -{{"}}"}}
+{{"{{"}}- $first := "" -{{"}}"}}
+{{"{{"}}- $verb := "update" -{{"}}"}}
+{{"{{"}}- range $status.Ordinary -{{"}}"}}
+{{"{{"}}- $n = add $n 1 -{{"}}"}}
+{{"{{"}}- if eq $first "" -{{"}}"}}
+{{"{{"}}- $first = .Path -{{"}}"}}
+{{"{{"}}- if eq .X 'A' -{{"}}"}}{{"{{"}}- $verb = "add" -{{"}}"}}{{"{{"}}- else if eq .X 'D' -{{"}}"}}{{"{{"}}- $verb = "remove" -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- if eq .X 'A' -{{"}}"}}{{"{{"}}- $adds = add $adds 1 -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- if eq .X 'D' -{{"}}"}}{{"{{"}}- $dels = add $dels 1 -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- range $status.RenamedOrCopied -{{"}}"}}
+{{"{{"}}- $n = add $n 1 -{{"}}"}}
+{{"{{"}}- if eq $first "" -{{"}}"}}{{"{{"}}- $first = .Path -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- if ne $first "" -{{"}}"}}
+{{"{{"}}- if hasSuffix ".md" $first -{{"}}"}}
+{{"{{"}}- $type = "docs" -{{"}}"}}
+{{"{{"}}- $scope = "" -{{"}}"}}
+{{"{{"}}- else -{{"}}"}}
+{{"{{"}}- if eq $adds $n -{{"}}"}}{{"{{"}}- $type = "feat" -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- $segs := splitList "/" $first -{{"}}"}}
+{{"{{"}}- $scope = trimPrefix "dot_" (index $segs 0) -{{"}}"}}
+{{"{{"}}- if and (eq $scope "config") (gt (len $segs) 1) -{{"}}"}}{{"{{"}}- $scope = index $segs 1 -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- if eq $scope "agents" -{{"}}"}}{{"{{"}}- $scope = "skills" -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- end -{{"}}"}}
+{{"{{"}}- if eq $n 1 -{{"}}"}}
+{{"{{"}} $type {{"}}"}}{{"{{"}} if $scope {{"}}"}}({{"{{"}} $scope {{"}}"}}){{"{{"}} end {{"}}"}}: {{"{{"}} $verb {{"}}"}} {{"{{"}} $first | targetRelPath {{"}}"}}
+{{"{{"}}- else -{{"}}"}}
+{{"{{"}}- $v := "update" -{{"}}"}}
+{{"{{"}}- if eq $adds $n -{{"}}"}}{{"{{"}}- $v = "add" -{{"}}"}}{{"{{"}}- else if eq $dels $n -{{"}}"}}{{"{{"}}- $v = "remove" -{{"}}"}}{{"{{"}}- end -{{"}}"}}
+{{"{{"}} $type {{"}}"}}: {{"{{"}} $v {{"}}"}} {{"{{"}} $n {{"}}"}} files
+{{"{{"}} range $status.Ordinary {{"}}"}}
+- {{"{{"}} .Path | targetRelPath {{"}}"}}
+{{"{{"}}- end {{"}}"}}
+{{"{{"}} range $status.RenamedOrCopied {{"}}"}}
+- {{"{{"}} .Path | targetRelPath {{"}}"}}
+{{"{{"}}- end {{"}}"}}
+{{"{{"}}- end -{{"}}"}}
+'''
+
+# Secret gate. Runs after staging, before `git commit`, so it inspects exactly
+# what would be committed. Public remote: block rather than publish a token.
+# See secret-guard.sh — it also unstages and removes the offending source file,
+# so the secret cannot ride along in the next auto-commit.
+[hooks."git-auto-commit".pre]
+    command = "sh"
+    args = ["-c", "\"$HOME/.local/bin/chezmoi-secret-guard\""]

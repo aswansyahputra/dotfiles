@@ -12,3 +12,6 @@
 .config/kilo/**/.DS_Store
 # Repo documentation — lives in source, not in $HOME.
 README.md
+
+# chezmoi config template — used by `chezmoi init`, not a target.
+chezmoi.toml
