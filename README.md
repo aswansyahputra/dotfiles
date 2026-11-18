@@ -23,32 +23,56 @@ chezmoi apply         # deploy source -> home
 
 ## Editing and syncing
 
-```bash
-chezmoi add ~/.config/foo/config.toml    # start tracking a file
-chezmoi re-add ~/.config/foo/config.toml # push edits back into source
-chezmoi edit ~/.config/foo/config.toml   # edit the source copy in $EDITOR
-```
-
-**There is no `~/.config/chezmoi/chezmoi.toml`, so `autoCommit` is off.**
-`chezmoi add` and `chezmoi re-add` stage nothing and commit nothing — always
-finish by hand:
+`autoAdd` and `autoCommit` are on (see `chezmoi.toml.tmpl`), so commands that
+change the source state stage and commit for you:
 
 ```bash
-cd "$(chezmoi source-path)"
-git status --short
-git add -A && git commit -m "chore: ..."
-git push
+chezmoi re-add ~/.config/opencode/opencode.json   # edit -> staged -> committed
+chezmoi git -- log -1 -p                          # review the commit
+chezmoi git -- push                               # publish — never automatic
 ```
 
-Prefer targeted `chezmoi re-add <file>` over bare `chezmoi re-add`. Bulk re-add
-copies every tracked file's current contents into source with no review step,
-which on a public remote is a one-command secret leak.
+Commit messages follow conventional commits, generated from the changed paths:
 
-Scan before committing anything that could hold a credential:
-
-```bash
-chezmoi diff | grep -nEi 'sk-|nsk_|ghp_|AKIA|BEGIN.*PRIVATE KEY|api_key|token'
 ```
+feat(opencode): add .config/opencode/opencode.json
+chore(kilo): update .config/kilo/kilo.jsonc
+docs: add README.md
+chore: update 2 files
+
+- .config/kilo/kilo.jsonc
+- .config/opencode/opencode.json
+```
+
+Types: `feat` (all new), `chore` (updates/removals), `docs` (`*.md`). Scope comes
+from the first changed path — `dot_config/opencode/x` → `opencode`,
+`dot_agents/*` → `skills`. Multi-file commits drop the scope and list the source
+paths in the body.
+
+**`autoPush` is deliberately off.** A commit is local and amendable; a push is
+published. That pause is where you read the diff.
+
+Two behaviours to keep in mind:
+
+- `autoAdd` runs `git add .`, so it stages **everything** in the source tree, not
+  just your target. Don't leave half-finished edits lying around — the next
+  unrelated `chezmoi add` will sweep them into its commit.
+- Bulk `chezmoi re-add` copies every tracked file's current contents into source
+  and commits them as one change, with no per-file review. Prefer
+  `chezmoi re-add <file>`.
+
+### Secret gate
+
+A `git-auto-commit` pre-hook runs `~/.local/bin/chezmoi-secret-guard` after
+staging and before the commit. It scans the staged diff for API-key, token, and
+private-key patterns. On a match it:
+
+1. removes the offending files from the index,
+2. deletes their source copies (the `$HOME` files are untouched),
+3. exits non-zero, so chezmoi aborts the commit.
+
+Deleting the source copy matters: leaving it staged would let the secret ride
+along in the *next* auto-commit.
 
 `chezmoi diff` resolves home-relative targets (`~/.agents/x.json`), not bare
 relative paths — `chezmoi diff .agents/x.json` reports "not managed".
