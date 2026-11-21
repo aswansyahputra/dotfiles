@@ -215,10 +215,10 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
       "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
-      "skillFolderHash": "b6f08c13f95a4854694f41113e0b4935c741deb1",
+      "skillFolderHash": "2c985726a95617e914ec694aebf9e1e07eb9bca1",
       "installedAt": "2026-10-13T08:35:44.031Z",
-      "updatedAt": "2026-11-16T11:29:03.918Z",
-      "commit": "e59ff376a41f7ca47b7541ad5c116495cbade3ee"
+      "updatedAt": "2026-11-21T11:57:57.035Z",
+      "commit": "2de1134dc4d1cfe112934611ae5803ae17a1bd7e"
     },
     "r-cli": {
       "source": "posit-dev/skills",
