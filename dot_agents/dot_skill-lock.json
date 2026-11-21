@@ -594,6 +594,16 @@
       "skillFolderHash": "a618ed46232a87364775a3b503bb774949d57e6c",
       "installedAt": "2026-11-17T23:35:23.286Z",
       "updatedAt": "2026-11-17T23:38:57.332Z"
+    },
+    "translation": {
+      "source": "kostja94/marketing-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/kostja94/marketing-skills.git",
+      "commit": "ac823a127782355339f21aef6c87f1ccff751c84",
+      "skillPath": "skills/content/translation/SKILL.md",
+      "skillFolderHash": "eb2416e5df96782560fb3f18b26973de7234567c",
+      "installedAt": "2026-11-21T03:12:09.439Z",
+      "updatedAt": "2026-11-21T03:12:09.439Z"
     }
   },
   "dismissed": {
