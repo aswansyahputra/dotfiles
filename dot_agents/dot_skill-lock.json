@@ -604,6 +604,16 @@
       "skillFolderHash": "eb2416e5df96782560fb3f18b26973de7234567c",
       "installedAt": "2026-11-21T03:12:09.439Z",
       "updatedAt": "2026-11-21T03:12:09.439Z"
+    },
+    "openmotion": {
+      "source": "nexu-io/openmotion",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nexu-io/openmotion.git",
+      "commit": "aefe22ee2f47011e86797f35cda7d727d8835f93",
+      "skillPath": "skills/openmotion/SKILL.md",
+      "skillFolderHash": "6d332383f627e0b70592537e5cfd0be2e0424b46",
+      "installedAt": "2026-11-22T10:07:25.810Z",
+      "updatedAt": "2026-11-22T10:07:25.810Z"
     }
   },
   "dismissed": {

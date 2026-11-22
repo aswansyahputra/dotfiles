@@ -14,6 +14,20 @@
       "gamma": {
         "type": "remote",
         "url": "https://mcp.gamma.app/mcp"
+      },
+      "openmotion": {
+        "type": "local",
+        "command": [
+          "/opt/homebrew/bin/node",
+          "--experimental-strip-types",
+          "/Users/aswansyahputra/.local/share/openmotion/mcp.ts"
+        ],
+        "cwd": "/Users/aswansyahputra/.local/share/openmotion",
+        "environment": {
+          "MOTION_DATA_DIR": "/Users/aswansyahputra/.local/share/openmotion-data"
+        },
+        "enabled": true,
+        "timeout": 30000
       }
     },
     "positron": {
