@@ -148,40 +148,6 @@
             }
           }
         },
-        "gemini-3.1-pro": {
-          "name": "[NusaGate] Gemini 3.1 Pro",
-          "capabilities": {
-            "reasoning": {
-              "supported": true,
-              "effort": [
-                "low",
-                "medium",
-                "high"
-              ]
-            }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "limit": {
-            "context": 1048576,
-            "output": 200000
-          },
-          "cost": {
-            "input": 0.6667,
-            "output": 4,
-            "cache": {
-              "read": 0.0667,
-              "write": 0.0667
-            }
-          }
-        },
         "gemini-3.8-flash": {
           "name": "[NusaGate] Gemini 3.8 Flash",
           "capabilities": {
@@ -392,79 +358,6 @@
             "cache": {
               "read": 0.0833,
               "write": 0.0833
-            }
-          }
-        },
-        "gpt-6-astra": {
-          "name": "[NusaGate] GPT-6 Astra",
-          "capabilities": {
-            "reasoning": {
-              "supported": true,
-              "effort": [
-                "low",
-                "medium",
-                "high",
-                "xhigh",
-                "max"
-              ]
-            }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "limit": {
-            "context": 272000,
-            "output": 200000
-          },
-          "cost": {
-            "input": 3.3333,
-            "output": 17.2222,
-            "cache": {
-              "read": 0.3333,
-              "write": 0.3333
-            }
-          }
-        },
-        "gpt-6-sol": {
-          "name": "[NusaGate] GPT-6 Sol",
-          "capabilities": {
-            "reasoning": {
-              "supported": true,
-              "effort": [
-                "none",
-                "low",
-                "medium",
-                "high",
-                "xhigh",
-                "max"
-              ]
-            }
-          },
-          "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
-          },
-          "limit": {
-            "context": 1050000,
-            "output": 200000
-          },
-          "cost": {
-            "input": 0.6944,
-            "output": 3.4444,
-            "cache": {
-              "read": 0.1389,
-              "write": 0.1389
             }
           }
         },
@@ -724,6 +617,245 @@
           },
           "limit": {
             "context": 1048576,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.6556,
+            "output": 1.9722,
+            "cache": {
+              "read": 0.0656,
+              "write": 0.0656
+            }
+          }
+        },
+        "deepseek-v4.1-flash-uncensored": {
+          "name": "[NusaGate] DeepSeek V4.1 Flash (Uncensored)",
+          "capabilities": {
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "low",
+                "high",
+                "xhigh",
+                "max"
+              ]
+            }
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.4167,
+            "output": 1.2222,
+            "cache": {
+              "read": 0.2917,
+              "write": 0.2917
+            }
+          }
+        },
+        "deepseek-v4.1-flash:netra": {
+          "name": "[NusaGate] DeepSeek V4.1 Flash (Netra)",
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.2889,
+            "output": 1.1556,
+            "cache": {
+              "read": 0.052,
+              "write": 0.052
+            }
+          }
+        },
+        "gpt-6.1-terra": {
+          "name": "[NusaGate] GPT 6.1 Terra",
+          "capabilities": {
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "none",
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ]
+            }
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.6667,
+            "output": 2.2222,
+            "cache": {
+              "read": 0.2,
+              "write": 0.2
+            }
+          }
+        },
+        "gpt-6.2-astra": {
+          "name": "[NusaGate] GPT-6.2 Astra",
+          "capabilities": {
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ]
+            }
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "audio",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 272000,
+            "output": 200000
+          },
+          "cost": {
+            "input": 3.3333,
+            "output": 17.2222,
+            "cache": {
+              "read": 0.6667,
+              "write": 0.6667
+            }
+          }
+        },
+        "gpt-6.2-sol": {
+          "name": "[NusaGate] GPT-6.2 Sol",
+          "capabilities": {
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ]
+            }
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "audio",
+              "video"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 1050000,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.6944,
+            "output": 3.4444,
+            "cache": {
+              "read": 0.1389,
+              "write": 0.1389
+            }
+          }
+        },
+        "qwen3.8-27b": {
+          "name": "[NusaGate] Qwen 3.8 27B",
+          "capabilities": {
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "none",
+                "low",
+                "medium",
+                "xhigh"
+              ]
+            }
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 131072,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.0556,
+            "output": 0.5556,
+            "cache": {
+              "read": 0.0056,
+              "write": 0.0056
+            }
+          }
+        },
+        "qwen3.8-max": {
+          "name": "[NusaGate] Qwen 3.8 Max",
+          "capabilities": {
+            "reasoning": {
+              "supported": true,
+              "effort": [
+                "low",
+                "medium",
+                "xhigh"
+              ]
+            }
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 131072,
             "output": 200000
           },
           "cost": {

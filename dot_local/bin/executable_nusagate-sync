@@ -1,19 +1,29 @@
 #!/usr/bin/env python3
-"""Sync nusagate models in opencode.json from the live API + models.dev.
+"""Reconcile nusagate models in opencode.json with the live API + models.dev.
 
-Updates per model: name prefix, capabilities.reasoning.effort (models.dev
-consensus), cost (IDR -> USD at RATE), limit.context. Unknown models are
-reported, never invented.
+The API endpoint is the source of truth for *which* models exist; models.dev
+supplies reasoning-effort values, which the API does not expose.
+
+  add    - API models absent from the config. Entry built from the API object
+           (displayName, input_modalities, contextLength, pricing).
+  prune  - config models the API no longer serves. Timestamped backup first.
+  update - per surviving model: name prefix, capabilities.reasoning.effort,
+           cost (IDR -> USD at RATE), limit.context.
+
+The API's own `reasoning` flag is deliberately ignored: it reports false for
+most models whose effort levels models.dev and the config both agree on, so
+models.dev wins. Missing effort data is left alone, never invented.
 """
-import json, os, sys, urllib.request
+import json, os, sys, time, urllib.request
 from collections import Counter, OrderedDict
 
 CONFIG = os.path.expanduser("~/.config/opencode/opencode.json")
 RATE = 18000  # nusagate.com: "kurs Rp 18.000/USD"
 PREFIX = "[NusaGate] "
+DEFAULT_OUTPUT = 200000  # API exposes no output cap; matches every existing entry
 OFFICIAL = {"deepseek": "deepseek", "gemini": "google", "glm": "zai", "gpt": "openai",
             "grok": "xai", "kimi": "moonshotai", "minimax": "minimax", "qwen": "alibaba"}
-
+ACRONYMS = {"gpt", "glm", "qwen", "kimi", "minimax", "mimo"}
 
 def get(url, key=None):
     h = {"User-Agent": "nusagate-sync/1"}
@@ -21,7 +31,6 @@ def get(url, key=None):
         h["Authorization"] = f"Bearer {key}"
     with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=30) as r:
         return json.load(r)
-
 
 def efforts(mid, catalog):
     """Vendor entry wins (empty list = toggle-only, no effort). Consensus only
@@ -39,6 +48,30 @@ def efforts(mid, catalog):
     lists = Counter(tuple(e) for _, e, _ in rows if e)
     return list(lists.most_common(1)[0][0]) if lists else None
 
+def usd(v):
+    return round(v / RATE, 4)
+
+def cost(pr):
+    return {"input": usd(pr["inputPer1M"]), "output": usd(pr["outputPer1M"]),
+            "cache": {"read": usd(pr["cachePricePer1M"]), "write": usd(pr["cachePricePer1M"])}}
+
+def pretty(mid):
+    """Fallback label for an API model that ships no displayName."""
+    words = mid.split(":")[0].split("-")
+    return " ".join(w.upper() if w in ACRONYMS else w.capitalize() for w in words)
+
+def entry(a, catalog):
+    """A complete config entry for an API model we have never seen before."""
+    mid = a["id"]
+    eff = efforts(mid, catalog)
+    m = OrderedDict()
+    m["name"] = PREFIX + (a.get("displayName") or pretty(mid))
+    if eff:
+        m["capabilities"] = {"reasoning": {"supported": True, "effort": eff}}
+    m["modalities"] = {"input": a.get("input_modalities") or ["text"], "output": ["text"]}
+    m["limit"] = {"context": a["contextLength"], "output": DEFAULT_OUTPUT}
+    m["cost"] = cost(a["pricing"])
+    return m
 
 def flat(o, pre=""):
     out = OrderedDict()
@@ -50,14 +83,12 @@ def flat(o, pre=""):
             out[key] = v
     return out
 
-
 def fmt(k, v):
     if isinstance(v, list):
         return ", ".join(map(str, v)) or "—"
     return f"${v}" if v is not None and k.startswith("cost.") else str(v)
 
-
-def main():
+def api_key():
     key = os.environ.get("NUSAGATE_API_KEY")
     if not key:  # non-interactive shells don't source ~/.zshrc
         env_file = os.path.expanduser("~/.config/secrets/nusagate.env")
@@ -83,18 +114,25 @@ def main():
                 break
     if not key:
         sys.exit("NUSAGATE_API_KEY not set (env, ~/.config/secrets/nusagate.env, or shell rc)")
-    api = {m["id"]: m for m in get("https://api.nusagate.com/v1/models", key)["data"]}
+    return key
+
+def main():
+    api = OrderedDict((m["id"], m) for m in get("https://api.nusagate.com/v1/models", api_key())["data"])
     catalog = get("https://models.dev/api.json")
     cfg = json.load(open(CONFIG), object_pairs_hook=OrderedDict)
     models = cfg["providers"]["nusagate"]["models"]
-    usd = lambda v: round(v / RATE, 4)
-    unknown, changed, deltas = [], 0, []
+    changed, deltas, pruned = 0, [], []
+
+    for mid in [m for m in models if m not in api]:  # API is the roster
+        pruned.append(mid)
+        del models[mid]
+
+    added = [mid for mid in api if mid not in models]
+    for mid in added:
+        models[mid] = entry(api[mid], catalog)
 
     for mid, old in list(models.items()):
-        a = api.get(mid)
-        if not a:
-            unknown.append(mid)
-            continue
+        a = api[mid]
         pr = a["pricing"]
         new = OrderedDict()
         for k, v in old.items():
@@ -108,9 +146,7 @@ def main():
                     new["capabilities"] = {"reasoning": {"supported": True, "effort": eff}}
             if k == "limit":
                 new[k] = {"context": a["contextLength"], "output": v["output"]}
-                new["cost"] = {"input": usd(pr["inputPer1M"]), "output": usd(pr["outputPer1M"]),
-                               "cache": {"read": usd(pr["cachePricePer1M"]),
-                                         "write": usd(pr["cachePricePer1M"])}}
+                new["cost"] = cost(pr)
         if new != old:
             changed += 1
             a_, b_ = flat(old), flat(new)
@@ -118,11 +154,20 @@ def main():
                                  if a_.get(k) != b_.get(k)]))
         models[mid] = new
 
-    if changed:
+    if pruned or added or changed:
+        backup = f"{CONFIG}.bak-{time.strftime('%Y%m%d-%H%M%S')}"
+        open(backup, "w").write(open(CONFIG).read())
         open(CONFIG, "w").write(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
-    print(f"{len(models)} models, {changed} updated, rate Rp {RATE}/USD")
+        print(f"backup: {backup}")
+
+    print(f"{len(models)} models, {changed} updated, {len(added)} added, "
+          f"{len(pruned)} pruned, rate Rp {RATE}/USD")
+    for mid in added:
+        print(f"  + {mid}")
+    for mid in pruned:
+        print(f"  - {mid} (not on API)")
     for mid, ds in deltas:
-        print(f"  - {mid}: " + "; ".join(f"{k} {fmt(k, a)} → {fmt(k, b)}" for k, a, b in ds))
+        print(f"  ~ {mid}: " + "; ".join(f"{k} {fmt(k, a)} → {fmt(k, b)}" for k, a, b in ds))
     print()
     rows = sorted(
         (mid, f"${m['cost']['input']}", f"${m['cost']['output']}", f"${m['cost']['cache']['read']}",
@@ -134,9 +179,6 @@ def main():
     print("| " + " | ".join(align) + " |")
     for r in rows:
         print("| " + " | ".join(str(v) for v in r) + " |")
-    if unknown:
-        print("\n⚠️ not on API (left as-is): " + ", ".join(unknown))
-
 
 if __name__ == "__main__":
     main()
