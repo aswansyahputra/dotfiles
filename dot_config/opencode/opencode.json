@@ -14,14 +14,9 @@
       "openmotion": {
         "type": "local",
         "command": [
-          "/opt/homebrew/bin/node",
-          "--experimental-strip-types",
-          "/Users/aswansyahputra/.local/share/openmotion/mcp.ts"
+          "/opt/homebrew/Cellar/node@24/24.22.3_2/bin/node",
+          "/Users/aswansyahputra/.local/share/openmotion/run-mcp.mjs"
         ],
-        "cwd": "/Users/aswansyahputra/.local/share/openmotion",
-        "environment": {
-          "MOTION_DATA_DIR": "/Users/aswansyahputra/.local/share/openmotion-data"
-        },
         "enabled": true,
         "timeout": 30000
       }
