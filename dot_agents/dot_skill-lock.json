@@ -609,11 +609,13 @@
       "source": "nexu-io/openmotion",
       "sourceType": "github",
       "sourceUrl": "https://github.com/nexu-io/openmotion.git",
-      "commit": "aefe22ee2f47011e86797f35cda7d727d8835f93",
+      "ref": "34df9b1aeae201c127ce2f7a1db3f42deed486aa",
+      "commit": "34df9b1aeae201c127ce2f7a1db3f42deed486aa",
       "skillPath": "skills/openmotion/SKILL.md",
       "skillFolderHash": "6d332383f627e0b70592537e5cfd0be2e0424b46",
+      "installMode": "copy",
       "installedAt": "2026-11-22T10:07:25.810Z",
-      "updatedAt": "2026-11-22T10:07:25.810Z"
+      "updatedAt": "2026-11-25T07:17:21.157Z"
     }
   },
   "dismissed": {
