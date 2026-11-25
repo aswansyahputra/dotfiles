@@ -11,10 +11,6 @@
           "sandbox.profile=workspace"
         ]
       },
-      "gamma": {
-        "type": "remote",
-        "url": "https://mcp.gamma.app/mcp"
-      },
       "openmotion": {
         "type": "local",
         "command": [
@@ -29,20 +25,6 @@
         "enabled": true,
         "timeout": 30000
       }
-    },
-    "positron": {
-      "type": "local",
-      "command": [
-        "/bin/sh",
-        "/Users/aswansyahputra/Library/Application Support/Positron/User/globalStorage/positron.positron-supervisor/mcp/Positron MCP/positron-mcp"
-      ]
-    },
-    "tableplus": {
-      "type": "local",
-      "command": [
-        "/Applications/TablePlus.app/Contents/MacOS/tableplus-mcp"
-      ],
-      "enabled": true
     }
   },
   "providers": {
