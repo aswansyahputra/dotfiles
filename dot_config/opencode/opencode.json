@@ -11,6 +11,14 @@
           "sandbox.profile=workspace"
         ]
       },
+      "cap": {
+        "type": "local",
+        "command": [
+          "/Users/aswansyahputra/.local/bin/cap",
+          "mcp",
+          "serve"
+        ]
+      },
       "openmotion": {
         "type": "local",
         "command": [
