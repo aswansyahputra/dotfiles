@@ -42,7 +42,7 @@
       },
       "models": {
         "deepseek-v4.1-flash": {
-          "name": "[NusaGate] DeepSeek V4.1 Flash",
+          "name": "DeepSeek V4.1 Flash",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -68,16 +68,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.065,
-            "output": 0.2,
+            "input": 0.0833,
+            "output": 0.3333,
             "cache": {
-              "read": 0.0065,
-              "write": 0.0065
+              "read": 0.0083,
+              "write": 0.0083
             }
           }
         },
         "gpt-6-luna": {
-          "name": "[NusaGate] GPT 6 Luna",
+          "name": "GPT 6 Luna",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -105,16 +105,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.0333,
-            "output": 0.1667,
+            "input": 0.0472,
+            "output": 0.2389,
             "cache": {
-              "read": 0.0067,
-              "write": 0.0067
+              "read": 0.0085,
+              "write": 0.0085
             }
           }
         },
         "deepseek-v4-pro": {
-          "name": "[NusaGate] DeepSeek V4 Pro",
+          "name": "DeepSeek V4 Pro",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -139,16 +139,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.2222,
-            "output": 0.6667,
+            "input": 0.4278,
+            "output": 1.2778,
             "cache": {
-              "read": 0.0222,
-              "write": 0.0222
+              "read": 0.0813,
+              "write": 0.0813
             }
           }
         },
         "gemini-3.8-flash": {
-          "name": "[NusaGate] Gemini 3.8 Flash",
+          "name": "Gemini 3.8 Flash",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -173,16 +173,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.2889,
-            "output": 1.1111,
+            "input": 0.4444,
+            "output": 1.6944,
             "cache": {
-              "read": 0.0289,
-              "write": 0.0289
+              "read": 0.0444,
+              "write": 0.0444
             }
           }
         },
         "glm-5.3": {
-          "name": "[NusaGate] GLM 5.3",
+          "name": "GLM 5.3",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -207,16 +207,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.4611,
-            "output": 1.4444,
+            "input": 0.8,
+            "output": 2.5,
             "cache": {
-              "read": 0.0461,
-              "write": 0.0461
+              "read": 0.08,
+              "write": 0.08
             }
           }
         },
         "glm-5.3-flash": {
-          "name": "[NusaGate] GLM 5.3 Flash",
+          "name": "GLM 5.3 Flash",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -250,7 +250,7 @@
           }
         },
         "gpt-5.6-luna": {
-          "name": "[NusaGate] GPT-5.6 Luna",
+          "name": "GPT-5.6 Luna",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -278,16 +278,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.0667,
-            "output": 0.5,
+            "input": 0.1111,
+            "output": 0.8278,
             "cache": {
-              "read": 0.0067,
-              "write": 0.0067
+              "read": 0.0111,
+              "write": 0.0111
             }
           }
         },
         "gpt-5.6-sol": {
-          "name": "[NusaGate] GPT-5.6 Sol",
+          "name": "GPT-5.6 Sol",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -315,16 +315,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 1.9444,
-            "output": 5.5556,
+            "input": 2.5556,
+            "output": 7.2778,
             "cache": {
-              "read": 0.2917,
-              "write": 0.2917
+              "read": 0.3833,
+              "write": 0.3833
             }
           }
         },
         "gpt-5.6-terra": {
-          "name": "[NusaGate] GPT-5.6 Terra",
+          "name": "GPT-5.6 Terra",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -352,16 +352,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.8333,
-            "output": 3.6111,
+            "input": 1.1667,
+            "output": 5.1111,
             "cache": {
-              "read": 0.0833,
-              "write": 0.0833
+              "read": 0.1167,
+              "write": 0.1167
             }
           }
         },
         "gpt-6.1-sol": {
-          "name": "[NusaGate] GPT 6.1 Sol",
+          "name": "GPT 6.1 Sol",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -388,16 +388,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.5556,
-            "output": 3.3333,
+            "input": 0.7222,
+            "output": 4.3333,
             "cache": {
-              "read": 0.0556,
-              "write": 0.0556
+              "read": 0.0722,
+              "write": 0.0722
             }
           }
         },
         "grok-4.7": {
-          "name": "[NusaGate] Grok 4.7",
+          "name": "Grok 4.7",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -423,16 +423,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.5556,
-            "output": 1.4167,
+            "input": 1.1667,
+            "output": 2.9722,
             "cache": {
-              "read": 0.0556,
-              "write": 0.0556
+              "read": 0.1167,
+              "write": 0.1167
             }
           }
         },
         "kimi-k3": {
-          "name": "[NusaGate] Kimi K3",
+          "name": "Kimi K3",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -457,16 +457,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.9444,
-            "output": 4.9444,
+            "input": 1.6944,
+            "output": 8.8889,
             "cache": {
-              "read": 0.0944,
-              "write": 0.0944
+              "read": 0.1694,
+              "write": 0.1694
             }
           }
         },
         "kimi-k3.1-pro": {
-          "name": "[NusaGate] Kimi K3.1 Pro",
+          "name": "Kimi K3.1 Pro",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -500,7 +500,7 @@
           }
         },
         "minimax-m3": {
-          "name": "[NusaGate] MiniMax M3",
+          "name": "MiniMax M3",
           "modalities": {
             "input": [
               "text",
@@ -524,7 +524,7 @@
           }
         },
         "minimax-m3.1-flash": {
-          "name": "[NusaGate] MiniMax M3.1 Flash",
+          "name": "MiniMax M3.1 Flash",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -560,7 +560,7 @@
           }
         },
         "qwen3.8-flash": {
-          "name": "[NusaGate] Qwen 3.8 Flash",
+          "name": "Qwen 3.8 Flash",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -585,16 +585,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.05,
-            "output": 0.1556,
+            "input": 0.0861,
+            "output": 0.2667,
             "cache": {
-              "read": 0.005,
-              "write": 0.005
+              "read": 0.0086,
+              "write": 0.0086
             }
           }
         },
         "qwen3.8-max-0902": {
-          "name": "[NusaGate] Qwen 3.8 Max 0902",
+          "name": "Qwen 3.8 Max 0902",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -619,16 +619,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.6556,
-            "output": 1.9722,
+            "input": 1.1389,
+            "output": 3.4444,
             "cache": {
-              "read": 0.0656,
-              "write": 0.0656
+              "read": 0.1139,
+              "write": 0.1139
             }
           }
         },
         "deepseek-v4.1-flash-uncensored": {
-          "name": "[NusaGate] DeepSeek V4.1 Flash (Uncensored)",
+          "name": "DeepSeek V4.1 Flash (Uncensored)",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -655,15 +655,15 @@
           },
           "cost": {
             "input": 0.4167,
-            "output": 1.2222,
+            "output": 1.2778,
             "cache": {
-              "read": 0.2917,
-              "write": 0.2917
+              "read": 0.25,
+              "write": 0.25
             }
           }
         },
         "deepseek-v4.1-flash:netra": {
-          "name": "[NusaGate] DeepSeek V4.1 Flash (Netra)",
+          "name": "DeepSeek V4.1 Flash (Netra)",
           "modalities": {
             "input": [
               "text",
@@ -687,7 +687,7 @@
           }
         },
         "gpt-6.1-terra": {
-          "name": "[NusaGate] GPT 6.1 Terra",
+          "name": "GPT 6.1 Terra",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -724,7 +724,7 @@
           }
         },
         "gpt-6.2-astra": {
-          "name": "[NusaGate] GPT-6.2 Astra",
+          "name": "GPT-6.2 Astra",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -762,7 +762,7 @@
           }
         },
         "gpt-6.2-sol": {
-          "name": "[NusaGate] GPT-6.2 Sol",
+          "name": "GPT-6.2 Sol",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -791,16 +791,16 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.6944,
-            "output": 3.4444,
+            "input": 0.5278,
+            "output": 3.2222,
             "cache": {
-              "read": 0.1389,
-              "write": 0.1389
+              "read": 0.0528,
+              "write": 0.0528
             }
           }
         },
         "qwen3.8-27b": {
-          "name": "[NusaGate] Qwen 3.8 27B",
+          "name": "Qwen 3.8 27B",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -834,7 +834,7 @@
           }
         },
         "qwen3.8-max": {
-          "name": "[NusaGate] Qwen 3.8 Max",
+          "name": "Qwen 3.8 Max",
           "capabilities": {
             "reasoning": {
               "supported": true,
@@ -858,150 +858,61 @@
             "output": 200000
           },
           "cost": {
-            "input": 0.6556,
-            "output": 1.9722,
+            "input": 1.1389,
+            "output": 3.4444,
             "cache": {
-              "read": 0.0656,
-              "write": 0.0656
+              "read": 0.1139,
+              "write": 0.1139
             }
           }
-        }
-      }
-    },
-    "kilo": {
-      "models": {
-        "moonshotai/kimi-k3.1-pro": {
-          "name": "[Kilo] MoonshotAI: Kimi K3.1 Pro"
         },
-        "minimax/minimax-m3.1-flash": {
-          "name": "[Kilo] MiniMax: MiniMax M3.1 Flash"
+        "deepseek-v4.1-flash:fenrir": {
+          "name": "DeepSeek V4.1 Flash (Fenrir)",
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.1944,
+            "output": 0.7222,
+            "cache": {
+              "read": 0.0097,
+              "write": 0.0097
+            }
+          }
         },
-        "openai/gpt-6.1-sol": {
-          "name": "[Kilo] GPT-6.1 Sol"
-        },
-        "openai/gpt-6-luna": {
-          "name": "[Kilo] GPT-6 Luna"
-        },
-        "openai/gpt-6-sol": {
-          "name": "[Kilo] GPT-6 Sol"
-        },
-        "x-ai/grok-4.7": {
-          "name": "[Kilo] Grok 4.7"
-        },
-        "deepseek/deepseek-v4.1-flash": {
-          "name": "[Kilo] DeepSeek V4.1 Flash"
-        },
-        "openai/gpt-6-astra": {
-          "name": "[Kilo] GPT-6 Astra"
-        },
-        "google/gemini-3.8-flash": {
-          "name": "[Kilo] Gemini 3.8 Flash"
-        },
-        "qwen/qwen3.8-max-0902": {
-          "name": "[Kilo] Qwen3.8 Max 0902"
-        },
-        "z-ai/glm-5.3-flash": {
-          "name": "[Kilo] GLM-5.3-Flash"
-        },
-        "qwen/qwen3.8-flash": {
-          "name": "[Kilo] Qwen3.8 Flash"
-        },
-        "z-ai/glm-5.3": {
-          "name": "[Kilo] GLM-5.3"
-        },
-        "moonshotai/kimi-k3": {
-          "name": "[Kilo] Kimi K3"
-        },
-        "openai/gpt-5.6-terra-pro": {
-          "name": "[Kilo] GPT-5.6 Terra"
-        },
-        "openai/gpt-5.6-terra": {
-          "name": "[Kilo] GPT-5.6 Terra"
-        },
-        "openai/gpt-5.6-sol": {
-          "name": "[Kilo] GPT-5.6 Sol"
-        },
-        "openai/gpt-5.6-sol-pro": {
-          "name": "[Kilo] GPT-5.6 Sol"
-        },
-        "openai/gpt-5.6-luna": {
-          "name": "[Kilo] GPT-5.6 Luna"
-        },
-        "openai/gpt-5.6-luna-pro": {
-          "name": "[Kilo] GPT-5.6 Luna"
-        },
-        "minimax/minimax-m3": {
-          "name": "[Kilo] MiniMax-M3"
-        },
-        "deepseek/deepseek-v4-pro": {
-          "name": "[Kilo] DeepSeek V4 Pro"
-        },
-        "deepseek/deepseek-v4.1-flash-1017": {
-          "name": "[Kilo] DeepSeek V4.1 Flash 1017"
-        }
-      }
-    },
-    "openrouter": {
-      "models": {
-        "moonshotai/kimi-k3.1-pro": {
-          "name": "[OpenRouter] Kimi K3.1 Pro"
-        },
-        "minimax/minimax-m3.1-flash": {
-          "name": "[OpenRouter] MiniMax-M3.1-Flash"
-        },
-        "openai/gpt-6.1-sol": {
-          "name": "[OpenRouter] GPT-6.1 Sol"
-        },
-        "openai/gpt-6-luna": {
-          "name": "[OpenRouter] GPT-6 Luna"
-        },
-        "openai/gpt-6-sol": {
-          "name": "[OpenRouter] GPT-6 Sol"
-        },
-        "x-ai/grok-4.7": {
-          "name": "[OpenRouter] Grok 4.7"
-        },
-        "deepseek/deepseek-v4.1-flash": {
-          "name": "[OpenRouter] DeepSeek V4.1 Flash"
-        },
-        "openai/gpt-6-astra": {
-          "name": "[OpenRouter] GPT-6 Astra"
-        },
-        "google/gemini-3.8-flash": {
-          "name": "[OpenRouter] Gemini 3.8 Flash"
-        },
-        "qwen/qwen3.8-max-0902": {
-          "name": "[OpenRouter] Qwen3.8 Max 0902"
-        },
-        "z-ai/glm-5.3-flash": {
-          "name": "[OpenRouter] GLM-5.3-Flash"
-        },
-        "qwen/qwen3.8-flash": {
-          "name": "[OpenRouter] Qwen3.8 Flash"
-        },
-        "z-ai/glm-5.3": {
-          "name": "[OpenRouter] GLM-5.3"
-        },
-        "moonshotai/kimi-k3": {
-          "name": "[OpenRouter] Kimi K3"
-        },
-        "openai/gpt-5.6-terra": {
-          "name": "[OpenRouter] GPT-5.6 Terra"
-        },
-        "openai/gpt-5.6-sol": {
-          "name": "[OpenRouter] GPT-5.6 Sol"
-        },
-        "openai/gpt-5.6-luna": {
-          "name": "[OpenRouter] GPT-5.6 Luna"
-        },
-        "minimax/minimax-m3": {
-          "name": "[OpenRouter] MiniMax-M3"
-        },
-        "deepseek/deepseek-v4-pro": {
-          "name": "[OpenRouter] DeepSeek V4 Pro"
-        },
-        "deepseek/deepseek-v4.1-flash-1017": {
-          "name": "[OpenRouter] DeepSeek V4.1 Flash 1017"
+        "glm-5.3-flash:fenrir": {
+          "name": "GLM 5.3 Flash (Fenrir)",
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 200000
+          },
+          "cost": {
+            "input": 0.0889,
+            "output": 0.2778,
+            "cache": {
+              "read": 0.0178,
+              "write": 0.0178
+            }
+          }
         }
       }
     }

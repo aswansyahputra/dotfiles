@@ -7,7 +7,7 @@ supplies reasoning-effort values, which the API does not expose.
   add    - API models absent from the config. Entry built from the API object
            (displayName, input_modalities, contextLength, pricing).
   prune  - config models the API no longer serves. Timestamped backup first.
-  update - per surviving model: name prefix, capabilities.reasoning.effort,
+  update - per surviving model: strip legacy [NusaGate] prefix, capabilities.reasoning.effort,
            cost (IDR -> USD at RATE), limit.context.
 
 The API's own `reasoning` flag is deliberately ignored: it reports false for
@@ -19,7 +19,7 @@ from collections import Counter, OrderedDict
 
 CONFIG = os.path.expanduser("~/.config/opencode/opencode.json")
 RATE = 18000  # nusagate.com: "kurs Rp 18.000/USD"
-PREFIX = "[NusaGate] "
+PREFIX = ""
 DEFAULT_OUTPUT = 200000  # API exposes no output cap; matches every existing entry
 OFFICIAL = {"deepseek": "deepseek", "gemini": "google", "glm": "zai", "gpt": "openai",
             "grok": "xai", "kimi": "moonshotai", "minimax": "minimax", "qwen": "alibaba"}
@@ -140,7 +140,7 @@ def main():
                 continue
             new[k] = v
             if k == "name":
-                new[k] = PREFIX + v.removeprefix(PREFIX)
+                new[k] = v.removeprefix("[NusaGate] ")
                 eff = efforts(mid, catalog)
                 if eff:
                     new["capabilities"] = {"reasoning": {"supported": True, "effort": eff}}
