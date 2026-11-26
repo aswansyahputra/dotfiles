@@ -100,7 +100,7 @@ target (`defaultInstallMode` in `src/add.ts`): one directory → copy, two or mo
 **Always name every agent in one command:**
 
 ```bash
-npx skills add <owner>/<repo> --skill <name> -g -a opencode -a claude-code -y
+npx skills add <owner>/<repo> --skill <name> -g -a opencode -a claude-code -a antigravity -y
 ```
 
 That writes one copy to `~/.agents/skills` and symlinks the rest. No cleanup

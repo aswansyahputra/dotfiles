@@ -22,7 +22,7 @@
 set -uo pipefail
 
 LOCK="${SKILLS_LOCK:-$HOME/.agents/.skill-lock.json}"
-AGENTS="opencode,claude-code"
+AGENTS="opencode,claude-code,antigravity"
 MODE="print"          # print | run | json | verify
 PIN=0
 
