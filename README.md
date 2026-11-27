@@ -23,7 +23,7 @@ chezmoi apply         # deploy source -> home
 
 ## Editing and syncing
 
-`autoAdd` and `autoCommit` are on (see `chezmoi.toml.tmpl`), so commands that
+`autoAdd` and `autoCommit` are on (see `.chezmoi.toml.tmpl`), so commands that
 change the source state stage and commit for you:
 
 ```bash
